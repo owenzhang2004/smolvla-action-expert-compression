@@ -1,0 +1,51 @@
+E = 720, F = 2048; dense bf16 = 8,847,360 B; 15,168 B per rank
+group-128 scales: W4A16 = 2,280,960 B, matched-bytes rank = 150
+per-channel scales: W4A16 = 2,221,472 B, matched-bytes rank = 146
+
+[Thor, CUDA graphs 1 us, peak BW]
+  W4A16 block: 2.28 MB, 0.0104 ms/step
+  launch penalty of 2 extra kernels = 0.55 MB-equivalent
+  matched-bytes rank (equal bytes, slower by the launch penalty): r = 150, 0.0123 ms/step
+  max rank strictly faster than dense bf16: r = 547 (0.76 E)
+  max rank strictly faster than W4A16: r = 114 (0.16 E)
+  per-step schedule (each step faster):  [48, 63, 77, 92, 106, 114, 114, 114, 114, 114]
+  per-call schedule (total faster):      [48, 63, 77, 92, 106, 121, 135, 150, 164, 179]
+
+[Thor, CUDA graphs 2 us, peak BW]
+  W4A16 block: 2.28 MB, 0.0124 ms/step
+  launch penalty of 2 extra kernels = 1.09 MB-equivalent
+  matched-bytes rank (equal bytes, slower by the launch penalty): r = 150, 0.0163 ms/step
+  max rank strictly faster than dense bf16: r = 511 (0.71 E)
+  max rank strictly faster than W4A16: r = 78 (0.11 E)
+  per-step schedule (each step faster):  [33, 43, 53, 63, 73, 78, 78, 78, 78, 78]
+  per-call schedule (total faster):      [33, 43, 53, 63, 73, 82, 92, 102, 112, 122]
+
+[Thor, CUDA graphs 2 us, 70% BW]
+  W4A16 block: 2.28 MB, 0.0159 ms/step
+  launch penalty of 2 extra kernels = 0.76 MB-equivalent
+  matched-bytes rank (equal bytes, slower by the launch penalty): r = 150, 0.0199 ms/step
+  max rank strictly faster than dense bf16: r = 532 (0.74 E)
+  max rank strictly faster than W4A16: r = 99 (0.14 E)
+  per-step schedule (each step faster):  [42, 54, 67, 80, 92, 99, 99, 99, 99, 99]
+  per-call schedule (total faster):      [42, 54, 67, 80, 92, 105, 117, 130, 143, 155]
+
+[Thor, eager PyTorch 8 us, peak BW]
+  W4A16 block: 2.28 MB, 0.0244 ms/step
+  launch penalty of 2 extra kernels = 4.37 MB-equivalent
+  matched-bytes rank (equal bytes, slower by the launch penalty): r = 150, 0.0403 ms/step
+  max rank strictly faster than dense bf16: r = 295 (0.41 E)
+  max rank strictly faster than W4A16: none (launch penalty exceeds W4A16's bytes)
+
+[A100 40GB, CUDA graphs 1 us]
+  W4A16 block: 2.28 MB, 0.0035 ms/step
+  launch penalty of 2 extra kernels = 3.11 MB-equivalent
+  matched-bytes rank (equal bytes, slower by the launch penalty): r = 150, 0.0055 ms/step
+  max rank strictly faster than dense bf16: r = 378 (0.53 E)
+  max rank strictly faster than W4A16: none (launch penalty exceeds W4A16's bytes)
+
+[A100 40GB, CUDA graphs 2 us]
+  W4A16 block: 2.28 MB, 0.0055 ms/step
+  launch penalty of 2 extra kernels = 6.22 MB-equivalent
+  matched-bytes rank (equal bytes, slower by the launch penalty): r = 150, 0.0095 ms/step
+  max rank strictly faster than dense bf16: r = 173 (0.24 E)
+  max rank strictly faster than W4A16: none (launch penalty exceeds W4A16's bytes)

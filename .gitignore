@@ -218,3 +218,32 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- project ---------------------------------------------------------------
+# Run outputs live on HPC scratch. Only results/LOG.md and per-arm summaries are committed.
+results/**/*.jsonl
+results/**/*.npz
+/outputs/
+eval_logs/
+# Weights and compressed artifacts
+*.safetensors
+*.pt
+*.pth
+*.bin
+# Containers and overlays
+*.sif
+*.ext3
+*.ext3.gz
+# Slurm and experiment trackers
+slurm-*.out
+slurm-*.err
+wandb/
+# Secrets
+.hf_token
+hf_token*
+# Local
+.DS_Store
+.claude/settings.local.json
+
+# The Python template above ignores every directory named env/; ours holds version pins.
+!/env/

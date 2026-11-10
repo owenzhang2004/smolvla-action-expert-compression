@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aec"
+version = "0.0.1"
+description = "Bytes-matched compression of SmolVLA's flow-matching action expert under closed-loop evaluation"
+readme = "README.md"
+requires-python = ">=3.12"  # LeRobot at the pinned commit requires >=3.12
+license = "Apache-2.0"
+# Deliberately empty: the byte arithmetic and CPU tests need nothing else.
+# torch, LeRobot and LIBERO are installed on HPC from env/requirements-hpc.txt.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6", "pre-commit>=3.7"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["gpu: needs a CUDA GPU and the pinned LeRobot environment (deselected by default)"]
+addopts = "-q -m 'not gpu'"
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+src = ["src", "tests"]
+# Kept byte-identical to the run recorded in docs/research-record.md section 6.
+extend-exclude = ["analysis/toy/compounding_harness.py"]
+force-exclude = true  # honour the exclusion when pre-commit passes file names explicitly
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["B008"]  # dataclass instances as argument defaults are frozen and intentional

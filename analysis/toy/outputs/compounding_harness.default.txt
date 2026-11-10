@@ -1,0 +1,59 @@
+storage rounding to bf16: False
+K=10. Reference: C_random ~ 1/sqrt(K) = 0.316; growth exp 1.0 = coherent, 0.5 = random walk
+matched bytes (per-channel RTN): W4A16 = 2,221,472 B, SVD rank 146 = 2,214,528 B
+
+===== teacher spectrum decay = 0.0 (0 = flat/random, 1 = steep) =====
+--- OOD = shifted conditioning ---
+metric                svd_ID     svd_OOD   svd_ratio    quant_ID   quant_OOD quant_ratio
+local_rel_err         0.0486      0.0590       1.215      0.0083      0.0100       1.212
+cosine                0.9988      0.9983       0.999      1.0000      0.9999       1.000
+coherence_C           0.9470      0.9557       1.009      0.9471      0.9550       1.008
+growth_exp            1.0643      1.0413       0.978      1.0634      1.0444       0.982
+endpoint_err          0.9885      1.3893       1.405      0.1686      0.2369       1.405
+
+--- OOD = shift along dropped directions ---
+metric                svd_ID     svd_OOD   svd_ratio    quant_ID   quant_OOD quant_ratio
+local_rel_err         0.0486      0.0698       1.437      0.0083      0.0120       1.447
+cosine                0.9988      0.9976       0.999      1.0000      0.9999       1.000
+coherence_C           0.9470      0.9527       1.006      0.9471      0.9528       1.006
+growth_exp            1.0643      1.0597       0.996      1.0634      1.0605       0.997
+endpoint_err          0.9885      1.9921       2.015      0.1686      0.3415       2.025
+
+matched bytes (per-channel RTN): W4A16 = 2,221,472 B, SVD rank 146 = 2,214,528 B
+
+===== teacher spectrum decay = 0.5 (0 = flat/random, 1 = steep) =====
+--- OOD = shifted conditioning ---
+metric                svd_ID     svd_OOD   svd_ratio    quant_ID   quant_OOD quant_ratio
+local_rel_err         0.0370      0.0450       1.216      0.0099      0.0121       1.214
+cosine                0.9993      0.9990       1.000      0.9999      0.9999       1.000
+coherence_C           0.9457      0.9550       1.010      0.9460      0.9552       1.010
+growth_exp            1.0660      1.0540       0.989      1.0635      1.0487       0.986
+endpoint_err          0.7510      1.0650       1.418      0.2015      0.2856       1.418
+
+--- OOD = shift along dropped directions ---
+metric                svd_ID     svd_OOD   svd_ratio    quant_ID   quant_OOD quant_ratio
+local_rel_err         0.0370      0.0417       1.128      0.0099      0.0114       1.148
+cosine                0.9993      0.9991       1.000      0.9999      0.9999       1.000
+coherence_C           0.9457      0.9399       0.994      0.9460      0.9420       0.996
+growth_exp            1.0660      1.0687       1.002      1.0635      1.0697       1.006
+endpoint_err          0.7510      1.1761       1.566      0.2015      0.3215       1.596
+
+matched bytes (per-channel RTN): W4A16 = 2,221,472 B, SVD rank 146 = 2,214,528 B
+
+===== teacher spectrum decay = 1.0 (0 = flat/random, 1 = steep) =====
+--- OOD = shifted conditioning ---
+metric                svd_ID     svd_OOD   svd_ratio    quant_ID   quant_OOD quant_ratio
+local_rel_err         0.0053      0.0062       1.164      0.0108      0.0118       1.090
+cosine                1.0000      1.0000       1.000      0.9999      0.9999       1.000
+coherence_C           0.9314      0.9445       1.014      0.9351      0.9508       1.017
+growth_exp            1.0639      1.0778       1.013      1.0712      1.0683       0.997
+endpoint_err          0.1073      0.1447       1.348      0.2178      0.2764       1.269
+
+--- OOD = shift along dropped directions ---
+metric                svd_ID     svd_OOD   svd_ratio    quant_ID   quant_OOD quant_ratio
+local_rel_err         0.0053      0.0055       1.038      0.0108      0.0106       0.976
+cosine                1.0000      1.0000       1.000      0.9999      0.9999       1.000
+coherence_C           0.9314      0.9237       0.992      0.9351      0.9186       0.982
+growth_exp            1.0639      1.0790       1.014      1.0712      1.0931       1.020
+endpoint_err          0.1073      0.1551       1.445      0.2178      0.2939       1.349
+

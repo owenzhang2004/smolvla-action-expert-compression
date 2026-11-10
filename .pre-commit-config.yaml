@@ -1,0 +1,22 @@
+# Runs before every commit, for people and Claude sessions alike.
+# One-time setup per clone:  pip install -e ".[dev]" && pre-commit install
+# Local hooks only, so nothing is downloaded at commit time (works on HPC nodes).
+repos:
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: ruff check (lint)
+        entry: ruff check --fix
+        language: system
+        types: [python]
+      - id: ruff-format
+        name: ruff format
+        entry: ruff format
+        language: system
+        types: [python]
+      - id: pytest-cpu
+        name: pytest (CPU tests; GPU tests are deselected)
+        entry: pytest
+        language: system
+        pass_filenames: false
+        always_run: true
